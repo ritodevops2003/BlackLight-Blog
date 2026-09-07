@@ -3,28 +3,31 @@ import path from "path";
 import { Blog } from "./types";
 
 const DATA_FILE = path.join(process.cwd(), "data", "blogs.json");
-const BLOB_PATHNAME = "blogs.json";
+const BLOB_PREFIX = "blogs-";
 const useBlob = !!process.env.BLOB_READ_WRITE_TOKEN;
 
 // Local dev writes to the JSON file on disk. On Vercel, the filesystem is
 // read-only, so once a Blob store is attached we persist the same JSON
 // file's contents to Vercel Blob storage instead.
+//
+// Vercel Blob caches each URL for a month minimum, so overwriting one
+// fixed pathname can never be read back fresh. Instead, every write goes
+// to a brand-new, never-before-cached pathname (guaranteed cache miss),
+// and old versions are deleted right after.
 async function readAll(): Promise<Blog[]> {
   if (useBlob) {
     const { list } = await import("@vercel/blob");
-    const { blobs } = await list({ prefix: BLOB_PATHNAME, limit: 1 });
+    const { blobs } = await list({ prefix: BLOB_PREFIX });
     if (blobs.length === 0) {
       const raw = await fs.readFile(DATA_FILE, "utf-8");
       const seed = JSON.parse(raw) as Blog[];
       await writeAll(seed);
       return seed;
     }
-    // The blob URL is a CDN edge cache key, so overwriting the same
-    // pathname can briefly serve a stale copy. A cache-busting query
-    // param forces a fresh fetch instead of a cached hit.
-    const res = await fetch(`${blobs[0].url}?ts=${Date.now()}`, {
-      cache: "no-store",
-    });
+    const latest = blobs.reduce((a, b) =>
+      new Date(a.uploadedAt).getTime() > new Date(b.uploadedAt).getTime() ? a : b
+    );
+    const res = await fetch(latest.url, { cache: "no-store" });
     return (await res.json()) as Blog[];
   }
   const raw = await fs.readFile(DATA_FILE, "utf-8");
@@ -33,13 +36,20 @@ async function readAll(): Promise<Blog[]> {
 
 async function writeAll(blogs: Blog[]): Promise<void> {
   if (useBlob) {
-    const { put } = await import("@vercel/blob");
-    await put(BLOB_PATHNAME, JSON.stringify(blogs, null, 2), {
+    const { put, list, del } = await import("@vercel/blob");
+    const pathname = `${BLOB_PREFIX}${Date.now()}.json`;
+    await put(pathname, JSON.stringify(blogs, null, 2), {
       access: "public",
       addRandomSuffix: false,
-      allowOverwrite: true,
       contentType: "application/json",
     });
+    const { blobs: existing } = await list({ prefix: BLOB_PREFIX });
+    const stale = existing
+      .filter((b) => b.pathname !== pathname)
+      .map((b) => b.url);
+    if (stale.length > 0) {
+      await del(stale);
+    }
     return;
   }
   await fs.writeFile(DATA_FILE, JSON.stringify(blogs, null, 2), "utf-8");
