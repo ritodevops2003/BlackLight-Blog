@@ -31,5 +31,60 @@
     "image": "https://picsum.photos/seed/blacklight-golf/1200/675",
     "createdAt": "2026-02-20T09:00:00.000Z",
     "updatedAt": "2026-02-20T09:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "title": "The Ad Spend Trap: Why More Budget Doesn't Mean More Reach",
+    "excerpt": "Doubling your media budget without fixing your targeting just means losing money faster. Here's what to fix first.",
+    "content": "Every quarter, some client asks us to double their ad spend to double their results. It almost never works that way. Platforms reward efficient signal, not raw dollars, and if your targeting or creative is off, more budget just means the algorithm finds worse audiences faster to spend it on.\n\nBefore we touch budget, we look at three things: whether the pixel is actually tracking the events that matter, whether the creative has enough variation to avoid fatigue, and whether the audience is tight enough to convert but wide enough to scale. Most underperforming accounts fail on at least two of these, and no amount of extra spend fixes a broken foundation.\n\nOnce those are solid, scaling budget works the way people expect. We've taken accounts from $10k to $80k in monthly spend without a drop in ROAS, but only after fixing the plumbing first. Spend is a multiplier. It multiplies whatever you already have, good or bad.",
+    "author": "Blacklight Team",
+    "category": "Ads",
+    "image": "https://picsum.photos/seed/blacklight-ads/1200/675",
+    "createdAt": "2026-03-10T09:00:00.000Z",
+    "updatedAt": "2026-03-10T09:00:00.000Z"
+  },
+  {
+    "id": "5",
+    "title": "Social Media Isn't a Broadcast Channel Anymore",
+    "excerpt": "The brands winning on social right now treat every post as the start of a conversation, not the end of one.",
+    "content": "For years, brand social media worked like a smaller, cheaper version of TV advertising: post a polished asset, hope people see it, move on to the next one. That approach is dying, and the accounts still running it are watching their reach quietly collapse.\n\nWhat's replacing it is closer to community management than broadcasting. The posts that perform now are the ones that get replies, and the replies matter as much as the original post. We spend as much time in a client's comment section as we do in their content calendar, because that's where the algorithm is actually watching and where real audience trust gets built.\n\nThis means smaller teams can outperform bigger ones if they're faster and more present. A brand that responds to every comment within an hour will consistently beat a brand posting more polished content less often. Reach follows engagement now, not the other way around.",
+    "author": "Blacklight Team",
+    "category": "Social Media",
+    "image": "https://picsum.photos/seed/blacklight-social/1200/675",
+    "createdAt": "2026-04-02T09:00:00.000Z",
+    "updatedAt": "2026-04-02T09:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "title": "SEO Isn't Dead, Your Website Just Isn't Built For It",
+    "excerpt": "Most 'SEO doesn't work anymore' complaints trace back to a slow, poorly structured site, not the search algorithm.",
+    "content": "We hear it in almost every pitch: SEO is dead, AI search killed it, nobody clicks through organic results anymore. Then we run a technical audit and find a site that takes six seconds to load, has no clear heading structure, and hasn't shipped a new page in eighteen months. SEO didn't die. That site was never really doing it.\n\nSearch, including the AI-powered kind, still rewards the same fundamentals it always has: fast load times, content that actually answers the question someone typed in, and a site structure that makes it obvious what a page is about. What's changed is the tolerance for getting it wrong. A slow, thin site used to rank through sheer age and backlinks. Now it gets buried on page one load alone.\n\nWe start every SEO engagement with a technical pass before writing a single word of content, because content built on a broken foundation never performs no matter how good it is. Fix the site first. The rankings follow.",
+    "author": "Blacklight Team",
+    "category": "SEO & Website",
+    "image": "https://picsum.photos/seed/blacklight-seo/1200/675",
+    "createdAt": "2026-04-24T09:00:00.000Z",
+    "updatedAt": "2026-04-24T09:00:00.000Z"
+  },
+  {
+    "id": "7",
+    "title": "What We Learned Producing 200 Videos in a Year",
+    "excerpt": "Volume forces discipline. Here's how shooting constantly changed the way our production team plans every shoot.",
+    "content": "Somewhere around video eighty, our production process stopped looking like filmmaking and started looking like manufacturing, in the best way. When you're shooting that often, you can't afford a single unscripted shoot day. Every setup gets planned to the minute, every shot list gets built before anyone touches a camera, and every asset gets tagged for reuse before the shoot even wraps.\n\nThe biggest shift was treating raw footage as a reusable asset library instead of a one-time deliverable. A single day of B-roll now feeds four or five different pieces of content across formats: a hero video, three social cutdowns, and a handful of still frames for paid ads. That single change roughly tripled our output without adding headcount.\n\nThe unexpected benefit was quality, not just speed. Repetition taught the team exactly which shots actually get used in the edit and which ones never make the cut. We shoot less waste now, not more content. Constraint made the work sharper, the same lesson we learned from LIV Golf, just applied to our own studio this time.",
+    "author": "Blacklight Team",
+    "category": "Media Production",
+    "image": "https://picsum.photos/seed/blacklight-production/1200/675",
+    "createdAt": "2026-05-15T09:00:00.000Z",
+    "updatedAt": "2026-05-15T09:00:00.000Z"
+  },
+  {
+    "id": "8",
+    "title": "Rebranding Without Losing What Made You Recognizable",
+    "excerpt": "A rebrand should sharpen what people already associate with you, not erase it and start from zero.",
+    "content": "Clients come to us wanting a rebrand for one of two reasons: they've outgrown their old identity, or they've quietly lost confidence in it. Only the first reason is actually a good one. The second usually means the brand is fine and the team just needs to see it applied better.\n\nBefore we redesign anything, we run a recognition audit: what do customers already associate with this brand, even the parts that feel dated? A distinctive color, an old tagline people still quote, a shape in the logo people doodle from memory. Those signals took years to build, and a full reset throws that equity away along with whatever wasn't working.\n\nThe rebrands that actually move the needle keep one or two of those anchors and rebuild everything else around them. It reads as evolution to the audience, not a company that panicked and started over. The goal isn't to look different. It's to look like a sharper version of exactly who you already were.",
+    "author": "Blacklight Team",
+    "category": "Branding",
+    "image": "https://picsum.photos/seed/blacklight-branding/1200/675",
+    "createdAt": "2026-06-08T09:00:00.000Z",
+    "updatedAt": "2026-06-08T09:00:00.000Z"
   }
 ]
