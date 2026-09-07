@@ -1,0 +1,127 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Blog } from "@/lib/types";
+
+interface Props {
+  mode: "create" | "edit";
+  initial?: Blog;
+}
+
+export default function BlogForm({ mode, initial }: Props) {
+  const router = useRouter();
+  const [title, setTitle] = useState(initial?.title ?? "");
+  const [category, setCategory] = useState(initial?.category ?? "");
+  const [author, setAuthor] = useState(initial?.author ?? "");
+  const [excerpt, setExcerpt] = useState(initial?.excerpt ?? "");
+  const [content, setContent] = useState(initial?.content ?? "");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+
+    if (!title.trim() || !content.trim()) {
+      setError("Title and content are required.");
+      return;
+    }
+
+    setLoading(true);
+    const payload = { title, category, author, excerpt, content };
+    const res = await fetch(
+      mode === "create" ? "/api/blogs" : `/api/blogs/${initial!.id}`,
+      {
+        method: mode === "create" ? "POST" : "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+    setLoading(false);
+
+    if (!res.ok) {
+      setError("Something went wrong. Please try again.");
+      return;
+    }
+
+    const saved = await res.json();
+    router.push(`/blogs/${saved.id}`);
+    router.refresh();
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {error && (
+        <p className="text-sm text-red-400 border border-red-400/40 bg-red-400/10 px-4 py-3">
+          {error}
+        </p>
+      )}
+
+      <Field label="Title">
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Post title"
+          className="w-full px-4 py-3 text-sm"
+        />
+      </Field>
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        <Field label="Category">
+          <input
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="e.g. Strategy"
+            className="w-full px-4 py-3 text-sm"
+          />
+        </Field>
+        <Field label="Author">
+          <input
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            placeholder="e.g. Blacklight Team"
+            className="w-full px-4 py-3 text-sm"
+          />
+        </Field>
+      </div>
+
+      <Field label="Excerpt">
+        <textarea
+          value={excerpt}
+          onChange={(e) => setExcerpt(e.target.value)}
+          placeholder="Short summary (optional — auto-generated if left blank)"
+          rows={2}
+          className="w-full px-4 py-3 text-sm"
+        />
+      </Field>
+
+      <Field label="Content">
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Write your post..."
+          rows={14}
+          className="w-full px-4 py-3 text-sm"
+        />
+      </Field>
+
+      <div className="flex items-center gap-4">
+        <button type="submit" disabled={loading} className="btn-solid disabled:opacity-50">
+          {loading ? "Saving…" : mode === "create" ? "Publish Post" : "Save Changes"}
+        </button>
+      </div>
+    </form>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="block mb-2 text-xs font-bold uppercase tracking-widest2 text-muted">
+        {label}
+      </span>
+      {children}
+    </label>
+  );
+}
