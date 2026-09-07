@@ -23,6 +23,16 @@ export default async function BlogPage({
       <h1 className="mt-4 text-3xl md:text-5xl font-extrabold leading-tight">
         {blog.title}
       </h1>
+
+      {blog.image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={blog.image}
+          alt={blog.title}
+          className="mt-8 h-64 md:h-96 w-full object-cover border border-line"
+        />
+      )}
+
       <div className="mt-6 flex items-center justify-between border-y border-line py-4 text-xs uppercase tracking-widest2 text-white/40">
         <span>
           {blog.author} ·{" "}

@@ -8,7 +8,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { title, excerpt, content, author, category } = body;
+  const { title, excerpt, content, author, category, image } = body;
 
   if (!title || !content) {
     return NextResponse.json(
@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
     content,
     author: author || "Anonymous",
     category: category || "General",
+    image: image || undefined,
   });
 
   return NextResponse.json(blog, { status: 201 });

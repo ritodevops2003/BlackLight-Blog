@@ -17,7 +17,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const body = await req.json();
-  const { title, excerpt, content, author, category } = body;
+  const { title, excerpt, content, author, category, image } = body;
 
   if (!title || !content) {
     return NextResponse.json(
@@ -32,6 +32,7 @@ export async function PUT(
     content,
     author,
     category,
+    image: image || undefined,
   });
 
   if (!blog) {

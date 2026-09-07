@@ -16,8 +16,32 @@ export default function BlogForm({ mode, initial }: Props) {
   const [author, setAuthor] = useState(initial?.author ?? "");
   const [excerpt, setExcerpt] = useState(initial?.excerpt ?? "");
   const [content, setContent] = useState(initial?.content ?? "");
+  const [image, setImage] = useState(initial?.image ?? "");
+  const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+
+    setError("");
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch("/api/upload", { method: "POST", body: formData });
+    setUploading(false);
+
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      setError(body.error || "Image upload failed. Please try again.");
+      return;
+    }
+
+    const { url } = await res.json();
+    setImage(url);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -29,7 +53,7 @@ export default function BlogForm({ mode, initial }: Props) {
     }
 
     setLoading(true);
-    const payload = { title, category, author, excerpt, content };
+    const payload = { title, category, author, excerpt, content, image };
     const res = await fetch(
       mode === "create" ? "/api/blogs" : `/api/blogs/${initial!.id}`,
       {
@@ -65,6 +89,42 @@ export default function BlogForm({ mode, initial }: Props) {
           placeholder="Post title"
           className="w-full px-4 py-3 text-sm"
         />
+      </Field>
+
+      <Field label="Featured Image">
+        <div className="space-y-3">
+          {image && (
+            <div className="relative h-48 w-full overflow-hidden border border-line">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={image} alt="" className="h-full w-full object-cover" />
+              <button
+                type="button"
+                onClick={() => setImage("")}
+                className="absolute top-2 right-2 bg-ink/80 text-white text-xs font-bold uppercase tracking-widest2 px-3 py-1.5 hover:bg-red-500/80 transition-colors"
+              >
+                Remove
+              </button>
+            </div>
+          )}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              placeholder="Paste an image URL…"
+              className="flex-1 px-4 py-3 text-sm"
+            />
+            <label className="btn-outline cursor-pointer whitespace-nowrap justify-center">
+              {uploading ? "Uploading…" : "Upload Image"}
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif,image/avif"
+                onChange={handleFileChange}
+                disabled={uploading}
+                className="hidden"
+              />
+            </label>
+          </div>
+        </div>
       </Field>
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -107,7 +167,11 @@ export default function BlogForm({ mode, initial }: Props) {
       </Field>
 
       <div className="flex items-center gap-4">
-        <button type="submit" disabled={loading} className="btn-solid disabled:opacity-50">
+        <button
+          type="submit"
+          disabled={loading || uploading}
+          className="btn-solid disabled:opacity-50"
+        >
           {loading ? "Saving…" : mode === "create" ? "Publish Post" : "Save Changes"}
         </button>
       </div>

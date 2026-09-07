@@ -64,22 +64,34 @@ export default async function HomePage() {
               <Link
                 key={blog.id}
                 href={`/blogs/${blog.id}`}
-                className="card p-8 hover:bg-panel/60 transition-colors group"
+                className="card hover:bg-panel/60 transition-colors group flex flex-col"
               >
-                <p className="eyebrow">{blog.category}</p>
-                <h3 className="mt-4 text-xl font-bold leading-snug group-hover:text-accent-light transition-colors">
-                  {blog.title}
-                </h3>
-                <p className="mt-3 text-sm text-muted line-clamp-3">
-                  {blog.excerpt}
-                </p>
-                <p className="mt-6 text-xs uppercase tracking-widest2 text-white/40">
-                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </p>
+                {blog.image && (
+                  <div className="h-40 overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={blog.image}
+                      alt=""
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
+                <div className="p-8 flex-1">
+                  <p className="eyebrow">{blog.category}</p>
+                  <h3 className="mt-4 text-xl font-bold leading-snug group-hover:text-accent-light transition-colors">
+                    {blog.title}
+                  </h3>
+                  <p className="mt-3 text-sm text-muted line-clamp-3">
+                    {blog.excerpt}
+                  </p>
+                  <p className="mt-6 text-xs uppercase tracking-widest2 text-white/40">
+                    {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>

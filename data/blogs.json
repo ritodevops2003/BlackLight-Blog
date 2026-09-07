@@ -6,6 +6,7 @@
     "content": "Creativity used to be a gut call. A brand director would greenlight a campaign because it felt right, and six months later the agency would find out whether it worked. That model is dead.\n\nToday, every dollar of ad spend throws off a signal. The brands winning right now are the ones that treat creative and data as the same discipline instead of two departments that meet once a quarter. We build campaigns with tracking baked in from the first storyboard, not bolted on after launch.\n\nThe result is a feedback loop measured in days, not quarters. Creative that underperforms gets killed fast. Creative that resonates gets more budget immediately. It is a faster, more honest way to build a brand, and it is why average ROAS across our accounts sits at 4x.",
     "author": "Blacklight Team",
     "category": "Strategy",
+    "image": "https://picsum.photos/seed/blacklight-strategy/1200/675",
     "createdAt": "2026-01-12T09:00:00.000Z",
     "updatedAt": "2026-01-12T09:00:00.000Z"
   },
@@ -16,6 +17,7 @@
     "content": "Every agency claims to use AI now. Few of them can tell you where the human oversight actually sits in that pipeline. We treat AI as a force multiplier for research, drafting, and production speed, never as the final word on anything that reaches your audience.\n\nIn practice that means AI helps us generate first-pass copy variants, analyze thousands of ad impressions for patterns a person would take weeks to spot, and rough out motion graphics concepts before a designer refines them. What it never does is make the final call on brand voice, tone, or messaging. That stays with strategists who know your business.\n\nThe agencies that get this balance wrong end up with content that feels generic. The ones that get it right ship more, faster, without ever sounding like a robot wrote it.",
     "author": "Blacklight Team",
     "category": "AI & Technology",
+    "image": "https://picsum.photos/seed/blacklight-ai/1200/675",
     "createdAt": "2026-02-03T09:00:00.000Z",
     "updatedAt": "2026-02-03T09:00:00.000Z"
   },
@@ -26,17 +28,8 @@
     "content": "When we started working with LIV Golf, the brief was simple: punch through the noise. Golf content has a reputation for being slow and quiet. LIV wanted the opposite, and they wanted it delivered on a broadcast timeline, not an agency timeline.\n\nWe rebuilt our production workflow around same-day turnaround. Cameras on the ground captured swagger and edge, not just swing mechanics. Every clip was cut for motion and pace, built to stop a scroll in under two seconds. Nothing sat in a review queue for a week waiting for sign-off.\n\nThe lesson generalizes well past golf. Speed is a creative constraint like any other, and constraints make work sharper. If your content pipeline cannot move at the speed of your audience's attention span, the content will not matter how good the concept is.",
     "author": "Blacklight Team",
     "category": "Case Study",
+    "image": "https://picsum.photos/seed/blacklight-golf/1200/675",
     "createdAt": "2026-02-20T09:00:00.000Z",
     "updatedAt": "2026-02-20T09:00:00.000Z"
-  },
-  {
-    "id": "1788778497082",
-    "title": "Test",
-    "excerpt": "Test",
-    "content": "Test",
-    "author": "Test",
-    "category": "Test",
-    "createdAt": "2026-09-07T10:54:57.082Z",
-    "updatedAt": "2026-09-07T10:54:57.082Z"
   }
 ]

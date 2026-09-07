@@ -25,32 +25,44 @@ export default async function BlogsPage() {
       ) : (
         <div className="grid gap-px bg-line md:grid-cols-2">
           {blogs.map((blog) => (
-            <div key={blog.id} className="card p-8 flex flex-col">
-              <p className="eyebrow">{blog.category}</p>
-              <Link href={`/blogs/${blog.id}`}>
-                <h2 className="mt-4 text-2xl font-bold leading-snug hover:text-accent-light transition-colors">
-                  {blog.title}
-                </h2>
-              </Link>
-              <p className="mt-3 text-sm text-muted flex-1">{blog.excerpt}</p>
-              <div className="mt-6 flex items-center justify-between text-xs uppercase tracking-widest2 text-white/40">
-                <span>
-                  {blog.author} ·{" "}
-                  {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </span>
-              </div>
-              <div className="mt-6 flex items-center gap-6 text-xs font-bold uppercase tracking-widest2">
-                <Link href={`/blogs/${blog.id}`} className="text-accent-light hover:text-white transition-colors">
-                  Read
+            <div key={blog.id} className="card flex flex-col">
+              {blog.image && (
+                <Link href={`/blogs/${blog.id}`} className="block h-48 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={blog.image}
+                    alt=""
+                    className="h-full w-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
                 </Link>
-                <Link href={`/blogs/${blog.id}/edit`} className="text-white/60 hover:text-white transition-colors">
-                  Edit
+              )}
+              <div className="p-8 flex flex-col flex-1">
+                <p className="eyebrow">{blog.category}</p>
+                <Link href={`/blogs/${blog.id}`}>
+                  <h2 className="mt-4 text-2xl font-bold leading-snug hover:text-accent-light transition-colors">
+                    {blog.title}
+                  </h2>
                 </Link>
-                <DeleteButton id={blog.id} />
+                <p className="mt-3 text-sm text-muted flex-1">{blog.excerpt}</p>
+                <div className="mt-6 flex items-center justify-between text-xs uppercase tracking-widest2 text-white/40">
+                  <span>
+                    {blog.author} ·{" "}
+                    {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                </div>
+                <div className="mt-6 flex items-center gap-6 text-xs font-bold uppercase tracking-widest2">
+                  <Link href={`/blogs/${blog.id}`} className="text-accent-light hover:text-white transition-colors">
+                    Read
+                  </Link>
+                  <Link href={`/blogs/${blog.id}/edit`} className="text-white/60 hover:text-white transition-colors">
+                    Edit
+                  </Link>
+                  <DeleteButton id={blog.id} />
+                </div>
               </div>
             </div>
           ))}

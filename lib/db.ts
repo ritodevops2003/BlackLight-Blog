@@ -80,7 +80,10 @@ export async function getBlog(id: string): Promise<Blog | undefined> {
 }
 
 export async function createBlog(
-  input: Pick<Blog, "title" | "excerpt" | "content" | "author" | "category">
+  input: Pick<
+    Blog,
+    "title" | "excerpt" | "content" | "author" | "category" | "image"
+  >
 ): Promise<Blog> {
   const blogs = await readAll();
   const now = new Date().toISOString();
@@ -97,7 +100,9 @@ export async function createBlog(
 
 export async function updateBlog(
   id: string,
-  input: Partial<Pick<Blog, "title" | "excerpt" | "content" | "author" | "category">>
+  input: Partial<
+    Pick<Blog, "title" | "excerpt" | "content" | "author" | "category" | "image">
+  >
 ): Promise<Blog | undefined> {
   const blogs = await readAll();
   const idx = blogs.findIndex((b) => b.id === id);
