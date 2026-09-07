@@ -53,8 +53,20 @@ export async function getBlogs(): Promise<Blog[]> {
 }
 
 export async function getBlog(id: string): Promise<Blog | undefined> {
-  const blogs = await readAll();
-  return blogs.find((b) => b.id === id);
+  // Right after a create/edit, Vercel Blob's storage can take a brief
+  // moment to become consistent, so a read immediately after a write
+  // (e.g. redirecting to the new post) can momentarily miss it. Retry
+  // a few times before concluding the post really doesn't exist.
+  const attempts = useBlob ? 5 : 1;
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const blogs = await readAll();
+    const found = blogs.find((b) => b.id === id);
+    if (found) return found;
+    if (attempt < attempts - 1) {
+      await new Promise((resolve) => setTimeout(resolve, 400));
+    }
+  }
+  return undefined;
 }
 
 export async function createBlog(
