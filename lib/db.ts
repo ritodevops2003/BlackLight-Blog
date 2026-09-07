@@ -3,13 +3,40 @@ import path from "path";
 import { Blog } from "./types";
 
 const DATA_FILE = path.join(process.cwd(), "data", "blogs.json");
+const BLOB_PATHNAME = "blogs.json";
+const useBlob = !!process.env.BLOB_READ_WRITE_TOKEN;
 
+// Local dev writes to the JSON file on disk. On Vercel, the filesystem is
+// read-only, so once a Blob store is attached we persist the same JSON
+// file's contents to Vercel Blob storage instead.
 async function readAll(): Promise<Blog[]> {
+  if (useBlob) {
+    const { list } = await import("@vercel/blob");
+    const { blobs } = await list({ prefix: BLOB_PATHNAME, limit: 1 });
+    if (blobs.length === 0) {
+      const raw = await fs.readFile(DATA_FILE, "utf-8");
+      const seed = JSON.parse(raw) as Blog[];
+      await writeAll(seed);
+      return seed;
+    }
+    const res = await fetch(blobs[0].url, { cache: "no-store" });
+    return (await res.json()) as Blog[];
+  }
   const raw = await fs.readFile(DATA_FILE, "utf-8");
   return JSON.parse(raw) as Blog[];
 }
 
 async function writeAll(blogs: Blog[]): Promise<void> {
+  if (useBlob) {
+    const { put } = await import("@vercel/blob");
+    await put(BLOB_PATHNAME, JSON.stringify(blogs, null, 2), {
+      access: "public",
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: "application/json",
+    });
+    return;
+  }
   await fs.writeFile(DATA_FILE, JSON.stringify(blogs, null, 2), "utf-8");
 }
 
