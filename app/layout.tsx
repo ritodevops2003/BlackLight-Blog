@@ -9,6 +9,11 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   title: "Blacklight Blog",
   description: "Insights on marketing, AI, and creative strategy from Blacklight Group.",
+  alternates: {
+    types: {
+      "application/rss+xml": "https://black-light-blog.vercel.app/feed.xml",
+    },
+  },
 };
 
 export default function RootLayout({
