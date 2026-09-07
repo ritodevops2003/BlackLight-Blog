@@ -19,7 +19,12 @@ async function readAll(): Promise<Blog[]> {
       await writeAll(seed);
       return seed;
     }
-    const res = await fetch(blobs[0].url, { cache: "no-store" });
+    // The blob URL is a CDN edge cache key, so overwriting the same
+    // pathname can briefly serve a stale copy. A cache-busting query
+    // param forces a fresh fetch instead of a cached hit.
+    const res = await fetch(`${blobs[0].url}?ts=${Date.now()}`, {
+      cache: "no-store",
+    });
     return (await res.json()) as Blog[];
   }
   const raw = await fs.readFile(DATA_FILE, "utf-8");
